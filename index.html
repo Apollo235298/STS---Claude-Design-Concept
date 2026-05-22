@@ -190,37 +190,55 @@
 </div>
 <div class="space-y-8">
 <div class="border-b border-gray-200 pb-6" data-purpose="faq-item">
-<div class="flex items-start justify-between cursor-pointer group">
+<div class="flex items-center justify-between cursor-pointer group" data-purpose="faq-toggle">
 <h3 class="text-xl font-medium text-gray-800">How does the schedule work?</h3>
-<span class="text-dental-gold text-2xl">✕</span>
+<span class="text-dental-gold text-2xl" data-purpose="faq-icon">+</span>
 </div>
-<div class="mt-4 text-sm text-gray-600 leading-relaxed">
+<div class="mt-4 text-sm text-gray-600 leading-relaxed hidden" data-purpose="faq-answer">
               We typically schedule visits on your day off (Monday, Tuesday, Wednesday, or Friday). This ensures we don't interfere with your production—we simply add to it.
             </div>
 </div>
 <div class="border-b border-gray-200 pb-6" data-purpose="faq-item">
-<div class="flex items-center justify-between cursor-pointer group">
+<div class="flex items-center justify-between cursor-pointer group" data-purpose="faq-toggle">
 <h3 class="text-xl font-medium text-gray-800">How does scheduling, treatment planning, and coding work?</h3>
-<span class="text-dental-gold text-2xl">+</span>
+<span class="text-dental-gold text-2xl" data-purpose="faq-icon">+</span>
+</div>
+<div class="mt-4 text-sm text-gray-600 leading-relaxed space-y-3 hidden" data-purpose="faq-answer">
+<p>You're the doctor. If you're unsure about which codes to use, we've pre-built the most commonly associated codes and will provide training and support as needed.</p>
+<p>Dr. Friend often reviews all PANs and CBCTs ahead of time and consults with the admin team to confirm treatment plans. He's also available for same-day cases when needed, helping the team build an efficient, profitable, and smooth day.</p>
 </div>
 </div>
 <div class="border-b border-gray-200 pb-6" data-purpose="faq-item">
-<div class="flex items-center justify-between cursor-pointer group">
+<div class="flex items-center justify-between cursor-pointer group" data-purpose="faq-toggle">
 <h3 class="text-xl font-medium text-gray-800">What does the office need to provide?</h3>
-<span class="text-dental-gold text-2xl">+</span>
+<span class="text-dental-gold text-2xl" data-purpose="faq-icon">+</span>
 </div>
+<div class="mt-4 text-sm text-gray-600 leading-relaxed hidden" data-purpose="faq-answer">
+              Only disposables: gauze, anesthetic, water, gloves, and masks—as well as a functioning sterilizer. We bring all our own equipment.
+            </div>
 </div>
 <div class="border-b border-gray-200 pb-6" data-purpose="faq-item">
-<div class="flex items-center justify-between cursor-pointer group">
+<div class="flex items-center justify-between cursor-pointer group" data-purpose="faq-toggle">
 <h3 class="text-xl font-medium text-gray-800">How does payment work?</h3>
-<span class="text-dental-gold text-2xl">+</span>
+<span class="text-dental-gold text-2xl" data-purpose="faq-icon">+</span>
+</div>
+<div class="mt-4 text-sm text-gray-600 leading-relaxed hidden" data-purpose="faq-answer">
+<p class="mb-3">We offer two options:</p>
+<ul class="list-disc pl-5 space-y-2 mb-3">
+<li><span class="font-semibold text-gray-800">Office-Handled</span> – We perform the procedures, and your office handles all billing and collections. We split production profits.</li>
+<li><span class="font-semibold text-gray-800">Turnkey</span> – We handle billing and collections for all the patients and rent 2 to 3 dental chairs for the day. ($3,000–$7,000)</li>
+</ul>
+<p>Both models work well and have their own advantages.</p>
 </div>
 </div>
 <div class="border-b border-gray-200 pb-6" data-purpose="faq-item">
-<div class="flex items-center justify-between cursor-pointer group">
+<div class="flex items-center justify-between cursor-pointer group" data-purpose="faq-toggle">
 <h3 class="text-xl font-medium text-gray-800">What about post-op calls and complications?</h3>
-<span class="text-dental-gold text-2xl">+</span>
+<span class="text-dental-gold text-2xl" data-purpose="faq-icon">+</span>
 </div>
+<div class="mt-4 text-sm text-gray-600 leading-relaxed hidden" data-purpose="faq-answer">
+              We see very few post-op issues. If something does arise and you're uncomfortable handling it, the doctor will follow up with the patient personally. We also provide a dedicated line for patients to contact the doctor directly.
+            </div>
 </div>
 </div>
 </div>
@@ -437,5 +455,29 @@
 </div>
 </footer>
 <!-- END: Footer -->
+<script>
+  document.querySelectorAll('[data-purpose="faq-item"]').forEach(function (item) {
+    var toggle = item.querySelector('[data-purpose="faq-toggle"]');
+    var answer = item.querySelector('[data-purpose="faq-answer"]');
+    var icon = item.querySelector('[data-purpose="faq-icon"]');
+    if (!toggle || !answer || !icon) return;
+
+    toggle.addEventListener('click', function () {
+      var isOpen = !answer.classList.contains('hidden');
+
+      document.querySelectorAll('[data-purpose="faq-item"]').forEach(function (other) {
+        var otherAnswer = other.querySelector('[data-purpose="faq-answer"]');
+        var otherIcon = other.querySelector('[data-purpose="faq-icon"]');
+        if (otherAnswer) otherAnswer.classList.add('hidden');
+        if (otherIcon) otherIcon.textContent = '+';
+      });
+
+      if (!isOpen) {
+        answer.classList.remove('hidden');
+        icon.textContent = '✕';
+      }
+    });
+  });
+</script>
 </body>
 </html>
