@@ -6,6 +6,7 @@
     { "src": "assets/**", "use": "@vercel/static" }
   ],
   "routes": [
+    { "src": "/api/contact-doctor", "dest": "/api/contact-doctor.js" },
     { "handle": "filesystem" },
     { "src": "/", "dest": "/index.html" }
   ]
