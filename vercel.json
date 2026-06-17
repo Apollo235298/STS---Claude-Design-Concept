@@ -1,0 +1,6 @@
+{
+  "rewrites": [
+    { "source": "/", "destination": "/Concept Claude Design V1/sts-site/index.html" },
+    { "source": "/(.*)", "destination": "/Concept Claude Design V1/sts-site/$1" }
+  ]
+}
