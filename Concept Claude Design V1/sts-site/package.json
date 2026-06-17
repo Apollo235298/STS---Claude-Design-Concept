@@ -1,0 +1,9 @@
+{
+  "name": "sts-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Southern Travel Surgery static site + Contact the Doctor serverless function",
+  "dependencies": {
+    "resend": "^6.0.0"
+  }
+}

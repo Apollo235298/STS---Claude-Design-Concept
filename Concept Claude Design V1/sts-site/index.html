@@ -1152,6 +1152,131 @@
   }
 
   /* ─────────────────────────────────────────────────
+     CONTACT THE DOCTOR MODAL  (provider inquiry)
+     ───────────────────────────────────────────────── */
+
+  /* repurposed booking CTAs are now <button>s reusing .btn / .hero__cta — strip native chrome */
+  button.btn, button.hero__cta { -webkit-appearance: none; appearance: none; }
+
+  body.modal-open { overflow: hidden; }
+
+  .contact-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    display: none;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 24px 16px;
+    background: rgba(39, 51, 73, 0.78);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .contact-modal.is-open { display: flex; }
+
+  .contact-modal__panel {
+    position: relative;
+    width: 100%;
+    max-width: 560px;
+    margin: auto;
+    background: #fff;
+    border: 1px solid var(--line);
+    padding: 44px 24px 36px;
+  }
+  @media (min-width: 600px) {
+    .contact-modal__panel { padding: 52px 48px 44px; }
+  }
+
+  .contact-modal__close {
+    position: absolute;
+    top: 10px; right: 10px;
+    width: 44px; height: 44px;
+    display: inline-flex; align-items: center; justify-content: center;
+    background: transparent; border: 0; cursor: pointer;
+    color: var(--ink-soft); font-size: 28px; line-height: 1;
+    transition: color .18s ease;
+  }
+  .contact-modal__close:hover { color: var(--navy); }
+
+  .contact-modal__title {
+    font-family: var(--head-display);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: var(--navy);
+    font-size: clamp(22px, 5vw, 28px);
+    line-height: 1.1;
+    margin: 16px 0 6px;
+  }
+  .contact-modal__intro {
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+
+  /* modal reuses .form / .field, but flush (no card border) and single-column on mobile */
+  .contact-modal .form { padding: 24px 0 0; border: 0; gap: 20px; }
+  .contact-modal .form__row { grid-template-columns: 1fr; }
+  @media (min-width: 600px) {
+    .contact-modal .form__row { grid-template-columns: 1fr 1fr; }
+  }
+
+  /* button groups (used instead of dropdowns) */
+  .toggle-group { display: flex; flex-wrap: wrap; gap: 10px; }
+  .toggle-btn {
+    -webkit-appearance: none; appearance: none;
+    font-family: var(--head-cond);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 13px;
+    color: var(--navy);
+    background: #fff;
+    border: 1px solid #8a9099;
+    padding: 0 16px;
+    min-height: 46px;
+    display: inline-flex; align-items: center; justify-content: center;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color .15s ease, color .15s ease, border-color .15s ease;
+  }
+  .toggle-btn:hover { border-color: var(--copper); }
+  .toggle-btn.is-selected { background: var(--navy); color: #fff; border-color: var(--navy); }
+
+  /* visible keyboard focus (text inputs set outline:none site-wide, so restore it here) */
+  .toggle-btn:focus-visible,
+  .contact-modal__close:focus-visible,
+  .contact-modal .field input:focus-visible,
+  .contact-modal .field textarea:focus-visible,
+  .contact-modal .btn:focus-visible {
+    outline: 2px solid var(--navy);
+    outline-offset: 2px;
+  }
+
+  /* honeypot — visually hidden */
+  .hp-field {
+    position: absolute !important;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px; border: 0;
+    overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+  }
+
+  /* invalid + status states */
+  .field.is-invalid input,
+  .field.is-invalid textarea { border-color: #c0392b; }
+  .field.is-invalid .toggle-group { outline: 1px solid #c0392b; outline-offset: 5px; }
+
+  /* kept rendered even when empty so screen readers reliably announce success/error */
+  .form__status { font-size: 14px; line-height: 1.55; margin: 0; min-height: 1px; }
+  .form__status.is-success { color: #1e7d4f; }
+  .form__status.is-error { color: #c0392b; }
+
+  .contact-modal .form__submit { align-self: stretch; margin-top: 4px; }
+  .contact-modal .form__submit .btn { width: 100%; justify-content: center; padding: 16px 24px; font-size: 14px; }
+  .btn[disabled] { opacity: 0.6; cursor: not-allowed; }
+
+  /* ─────────────────────────────────────────────────
      BOOK-NOW CTA BAND
      ───────────────────────────────────────────────── */
 
@@ -1346,7 +1471,7 @@
 <header class="nav">
   <div class="nav__inner">
     <div class="nav__left">
-      <a class="btn btn--outline" href="https://www.friendlydentalco.com/" target="_blank" rel="noopener noreferrer">Book Online</a>
+      <button class="btn btn--outline" type="button" data-contact-open>Contact the Doctor</button>
     </div>
 
     <a class="nav__logo" href="#top" aria-label="Southern Travel Surgery — Home">
@@ -1363,7 +1488,7 @@
 
   <nav class="nav__menu" id="navMenu" aria-label="Mobile navigation">
     <ul>
-      <li><a href="https://www.friendlydentalco.com/" target="_blank" rel="noopener noreferrer">Book Online</a></li>
+      <li><button type="button" data-contact-open>Contact the Doctor</button></li>
       <li><a href="#reviews">Patient Reviews</a></li>
     </ul>
   </nav>
@@ -1393,10 +1518,10 @@
 
       <div class="hero__cta-col">
         <div class="hero__cta-label">Ready to refer?</div>
-        <a class="hero__cta" href="https://www.friendlydentalco.com/" target="_blank" rel="noopener noreferrer">
-          Book Now
+        <button class="hero__cta" type="button" data-contact-open>
+          Contact the Doctor
           <span class="arrow"></span>
-        </a>
+        </button>
         <div class="hero__meta">Same-week scheduling · 100-mile service radius</div>
       </div>
     </div>
@@ -1764,14 +1889,14 @@
 
 <!-- ───────── CTA BAND ───────── -->
 <section class="cta-band">
-  <div class="cta-band__eyebrow">Schedule Your First Day</div>
-  <h2 class="cta-band__h">Book Now</h2>
+  <div class="cta-band__eyebrow">Refer a Patient</div>
+  <h2 class="cta-band__h">Contact the Doctor</h2>
   <p class="cta-band__sub">
-    Two ways to start: pick a date on our online calendar, or call our partnerships team and
-    we'll walk you through onboarding in under fifteen minutes.
+    Tell us about your practice and the cases you'd like covered, and Dr. Bechtel will follow up
+    to plan your first surgical day — onboarding takes under fifteen minutes.
   </p>
   <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
-    <a class="btn btn--ghost-light" href="https://www.friendlydentalco.com/" target="_blank" rel="noopener noreferrer" style="padding: 18px 32px; font-size: 14px;">Book Online</a>
+    <button class="btn btn--ghost-light" type="button" data-contact-open style="padding: 18px 32px; font-size: 14px;">Contact the Doctor</button>
   </div>
 </section>
 
@@ -1821,6 +1946,90 @@
     <div>Licensed in KY</div>
   </div>
 </footer>
+
+<!-- ───────── CONTACT THE DOCTOR MODAL (provider inquiry) ───────── -->
+<div class="contact-modal" id="contactModal" role="dialog" aria-modal="true" aria-labelledby="contactModalTitle" aria-hidden="true">
+  <div class="contact-modal__panel">
+    <button class="contact-modal__close" type="button" data-contact-close aria-label="Close">&times;</button>
+
+    <span class="section-label">Contact the Doctor</span>
+    <h2 class="contact-modal__title" id="contactModalTitle">Refer to Southern Travel Surgery</h2>
+    <p class="contact-modal__intro">For referring dental offices. Tell us about your practice and Dr. Bechtel will follow up.</p>
+
+    <form class="form" id="contactForm" novalidate>
+      <div class="field" data-field="annual_collections">
+        <label for="annual_collections">Approximately what is your office collecting per year?</label>
+        <input type="text" id="annual_collections" name="annual_collections" autocomplete="off" aria-required="true">
+      </div>
+
+      <div class="field" data-field="desired_service_mix">
+        <label for="desired_service_mix">What service mix are you hoping to have?</label>
+        <textarea id="desired_service_mix" name="desired_service_mix" aria-required="true"></textarea>
+      </div>
+
+      <div class="field" data-field="best_days">
+        <label>What days work best for us to come to your office?</label>
+        <div class="toggle-group" data-key="best_days" data-select="multi" role="group" aria-label="Best days for STS to visit" aria-required="true">
+          <button type="button" class="toggle-btn" data-value="Monday" aria-pressed="false">Monday</button>
+          <button type="button" class="toggle-btn" data-value="Tuesday" aria-pressed="false">Tuesday</button>
+          <button type="button" class="toggle-btn" data-value="Wednesday" aria-pressed="false">Wednesday</button>
+          <button type="button" class="toggle-btn" data-value="Thursday" aria-pressed="false">Thursday</button>
+          <button type="button" class="toggle-btn" data-value="Friday" aria-pressed="false">Friday</button>
+        </div>
+      </div>
+
+      <div class="field" data-field="available_operatories">
+        <label>How many operatories can you make available?</label>
+        <div class="toggle-group" data-key="available_operatories" data-select="single" role="group" aria-label="Available operatories" aria-required="true">
+          <button type="button" class="toggle-btn" data-value="1" aria-pressed="false">1</button>
+          <button type="button" class="toggle-btn" data-value="2" aria-pressed="false">2</button>
+          <button type="button" class="toggle-btn" data-value="3" aria-pressed="false">3</button>
+        </div>
+      </div>
+
+      <div class="field" data-field="participating_insurances">
+        <label>What insurances do you currently participate with?</label>
+        <div class="toggle-group" data-key="participating_insurances" data-select="multi" role="group" aria-label="Participating insurances" aria-required="true">
+          <button type="button" class="toggle-btn" data-value="Medicaid / Skygen / Aetna" aria-pressed="false">Medicaid / Skygen / Aetna</button>
+          <button type="button" class="toggle-btn" data-value="Medicaid / United Healthcare" aria-pressed="false">Medicaid / United Healthcare</button>
+          <button type="button" class="toggle-btn" data-value="Medicaid / Avesis / WellCare" aria-pressed="false">Medicaid / Avesis / WellCare</button>
+        </div>
+      </div>
+
+      <div class="form__row">
+        <div class="field" data-field="practice_name">
+          <label for="practice_name">Practice name</label>
+          <input type="text" id="practice_name" name="practice_name" autocomplete="organization" aria-required="true">
+        </div>
+        <div class="field" data-field="contact_name">
+          <label for="contact_name">Contact name</label>
+          <input type="text" id="contact_name" name="contact_name" autocomplete="name" aria-required="true">
+        </div>
+      </div>
+      <div class="form__row">
+        <div class="field" data-field="email">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" autocomplete="email" aria-required="true">
+        </div>
+        <div class="field" data-field="phone">
+          <label for="phone">Phone</label>
+          <input type="text" id="phone" name="phone" autocomplete="tel" inputmode="tel" aria-required="true">
+        </div>
+      </div>
+
+      <div class="hp-field" aria-hidden="true">
+        <label for="company">Company (leave this field empty)</label>
+        <input type="text" id="company" name="company" tabindex="-1" autocomplete="off">
+      </div>
+
+      <p class="form__status" role="status" aria-live="polite"></p>
+
+      <div class="form__submit">
+        <button class="btn btn--solid" type="submit" id="contactSubmit">Send Inquiry</button>
+      </div>
+    </form>
+  </div>
+</div>
 
 <script>
   // Click-to-play YouTube facades (hero intro + patient testimonials) — keeps iframes off the initial load
@@ -1894,6 +2103,184 @@
       }
     });
   });
+
+  // Contact the Doctor — provider inquiry modal
+  (() => {
+    const modal = document.getElementById('contactModal');
+    if (!modal) return;
+    const form = modal.querySelector('#contactForm');
+    const statusEl = modal.querySelector('.form__status');
+    const submitBtn = modal.querySelector('#contactSubmit');
+    let lastFocused = null;
+    let inerted = [];
+    let sending = false;
+
+    const openModal = (trigger) => {
+      lastFocused = trigger || document.activeElement;
+      // hide the rest of the page from AT + keyboard while the dialog is open
+      inerted = Array.from(document.body.children).filter((el) => el !== modal && el.tagName !== 'SCRIPT');
+      inerted.forEach((el) => { el.inert = true; });
+      modal.classList.add('is-open');
+      document.body.classList.add('modal-open');
+      modal.setAttribute('aria-hidden', 'false');
+      // clear any stale status / validation from a previous open
+      statusEl.textContent = '';
+      statusEl.className = 'form__status';
+      modal.querySelectorAll('.field.is-invalid').forEach((f) => f.classList.remove('is-invalid'));
+      modal.querySelectorAll('[aria-invalid="true"]').forEach((el) => el.setAttribute('aria-invalid', 'false'));
+      const close = modal.querySelector('.contact-modal__close');
+      if (close) close.focus();
+    };
+    const closeModal = () => {
+      modal.classList.remove('is-open');
+      document.body.classList.remove('modal-open');
+      modal.setAttribute('aria-hidden', 'true');
+      inerted.forEach((el) => { el.inert = false; });
+      inerted = [];
+      if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
+    };
+
+    document.querySelectorAll('[data-contact-open]').forEach((btn) => {
+      btn.addEventListener('click', (e) => { e.preventDefault(); openModal(btn); });
+    });
+    modal.querySelectorAll('[data-contact-close]').forEach((el) => {
+      el.addEventListener('click', closeModal);
+    });
+    modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
+    });
+    // focus trap: keep Tab / Shift+Tab cycling within the dialog
+    modal.addEventListener('keydown', (e) => {
+      if (e.key !== 'Tab') return;
+      const items = Array.from(modal.querySelectorAll('button, input, textarea, select, [href], [tabindex]'))
+        .filter((el) => el.tabIndex !== -1 && !el.disabled && el.offsetParent !== null);
+      if (!items.length) return;
+      const first = items[0], last = items[items.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    });
+    // clear a field's error state as the user corrects it
+    modal.querySelectorAll('.field input, .field textarea').forEach((el) => {
+      el.addEventListener('input', () => {
+        const field = el.closest('.field');
+        if (field) field.classList.remove('is-invalid');
+        el.setAttribute('aria-invalid', 'false');
+      });
+    });
+
+    // Toggle button groups (multi-select and single-select) replace dropdowns
+    modal.querySelectorAll('.toggle-group').forEach((group) => {
+      const multi = group.getAttribute('data-select') === 'multi';
+      group.querySelectorAll('.toggle-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          if (multi) {
+            const on = btn.classList.toggle('is-selected');
+            btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+          } else {
+            group.querySelectorAll('.toggle-btn').forEach((b) => {
+              b.classList.remove('is-selected');
+              b.setAttribute('aria-pressed', 'false');
+            });
+            btn.classList.add('is-selected');
+            btn.setAttribute('aria-pressed', 'true');
+          }
+          const field = group.closest('.field');
+          if (field) field.classList.remove('is-invalid');
+          group.setAttribute('aria-invalid', 'false');
+        });
+      });
+    });
+
+    const selected = (key) => Array.from(
+      modal.querySelectorAll('.toggle-group[data-key="' + key + '"] .toggle-btn.is-selected')
+    ).map((b) => b.getAttribute('data-value'));
+
+    const setStatus = (msg, type) => {
+      statusEl.textContent = msg || '';
+      statusEl.className = 'form__status' + (type ? ' is-' + type : '');
+    };
+
+    const clearSelections = () => {
+      modal.querySelectorAll('.toggle-btn.is-selected').forEach((b) => {
+        b.classList.remove('is-selected');
+        b.setAttribute('aria-pressed', 'false');
+      });
+    };
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (sending) return;
+
+      const data = {
+        annual_collections: form.annual_collections.value.trim(),
+        desired_service_mix: form.desired_service_mix.value.trim(),
+        best_days: selected('best_days'),
+        available_operatories: selected('available_operatories')[0] || '',
+        participating_insurances: selected('participating_insurances'),
+        practice_name: form.practice_name.value.trim(),
+        contact_name: form.contact_name.value.trim(),
+        email: form.email.value.trim(),
+        phone: form.phone.value.trim(),
+        company: form.company.value,
+      };
+
+      const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email);
+      let firstInvalid = null;
+      const mark = (name, bad) => {
+        const field = form.querySelector('[data-field="' + name + '"]');
+        if (!field) return;
+        field.classList.toggle('is-invalid', bad);
+        const control = field.querySelector('input, textarea, .toggle-group');
+        if (control) control.setAttribute('aria-invalid', bad ? 'true' : 'false');
+        if (bad && !firstInvalid) firstInvalid = field;
+      };
+      mark('annual_collections', !data.annual_collections);
+      mark('desired_service_mix', !data.desired_service_mix);
+      mark('best_days', data.best_days.length === 0);
+      mark('available_operatories', !data.available_operatories);
+      mark('participating_insurances', data.participating_insurances.length === 0);
+      mark('practice_name', !data.practice_name);
+      mark('contact_name', !data.contact_name);
+      mark('email', !emailOk);
+      mark('phone', !data.phone);
+
+      if (firstInvalid) {
+        setStatus('Please complete the highlighted fields.', 'error');
+        const focusable = firstInvalid.querySelector('input, textarea, .toggle-btn');
+        if (focusable) focusable.focus();
+        return;
+      }
+
+      sending = true;
+      submitBtn.disabled = true;
+      const originalLabel = submitBtn.textContent;
+      submitBtn.textContent = 'Sending…';
+      setStatus('', null);
+
+      try {
+        const res = await fetch('/api/contact-doctor', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        });
+        const json = await res.json().catch(() => ({}));
+        if (res.ok && json.ok) {
+          form.reset();
+          clearSelections();
+          setStatus('Thanks — Dr. Bechtel will be in touch.', 'success');
+        } else {
+          setStatus("We couldn't send your inquiry. Please try again or contact us directly.", 'error');
+        }
+      } catch (err) {
+        setStatus("We couldn't send your inquiry. Please try again or contact us directly.", 'error');
+      } finally {
+        sending = false;
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalLabel;
+      }
+    });
+  })();
 </script>
 
 </body>
