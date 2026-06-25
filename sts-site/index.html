@@ -631,7 +631,7 @@
   }
   .specialist__creds li {
     display: grid;
-    grid-template-columns: 90px 1fr;
+    grid-template-columns: 160px 1fr;
     align-items: center;
     gap: 20px;
     padding: 18px 0;
@@ -643,8 +643,46 @@
     font-family: var(--head-display);
     font-weight: 700;
     color: var(--navy);
-    font-size: 22px;
+    font-size: 19px;
+    line-height: 1.12;
     letter-spacing: 0.02em;
+  }
+
+  .specialist__training {
+    margin-top: 32px;
+  }
+  .specialist__training-label {
+    display: block;
+    font-family: var(--head-cond);
+    text-transform: uppercase;
+    letter-spacing: 0.28em;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--copper);
+    margin-bottom: 16px;
+  }
+  .specialist__courses {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 10px;
+  }
+  .specialist__courses li {
+    position: relative;
+    padding-left: 22px;
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--ink);
+  }
+  .specialist__courses li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.6em;
+    width: 10px;
+    height: 2px;
+    background: var(--copper);
   }
 
   /* ─────────────────────────────────────────────────
@@ -1656,9 +1694,9 @@
   </div>
 </section>
 
-<!-- ───────── OUR SPECIALIST (DR. FRIEND) ───────── -->
+<!-- ───────── OUR SURGEON (DR. FRIEND) ───────── -->
 <section class="specialist shell">
-  <span class="section-label">Our Specialist</span>
+  <span class="section-label">Our Surgeon</span>
 
   <div class="specialist__grid">
     <figure class="specialist__photo">
@@ -1692,10 +1730,20 @@
       </p>
 
       <ul class="specialist__creds">
-        <li><span>DMD</span> Kentucky-licensed, advanced surgical &amp; implant focus</li>
-        <li><span>IV</span> Board-issued sedation &amp; anesthesia permit</li>
+        <li><span>DMD</span> Kentucky-licensed; advanced surgical &amp; implant focus</li>
+        <li><span>Sedation Permit</span> Board-issued sedation &amp; anesthesia permit</li>
         <li><span>ACLS</span> Certified; maintains a Board-registered sedation facility</li>
       </ul>
+
+      <div class="specialist__training">
+        <span class="specialist__training-label">Training &amp; Fellowships</span>
+        <ul class="specialist__courses">
+          <li>Associate Fellow, American Academy of Implant Dentistry (AAID)</li>
+          <li>IV Sedation Implant Pathway — Graduate</li>
+          <li>Colorado Surgical Institute — Graduate</li>
+          <li>Full Arch Masters — Graduate</li>
+        </ul>
+      </div>
     </div>
   </div>
 </section>
