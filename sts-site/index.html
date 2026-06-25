@@ -1463,6 +1463,72 @@
 
     .footer__inner { grid-template-columns: 1fr; }
   }
+
+  /* ─────────────────────────────────────────────────
+     CREDIBILITY BAND
+     ───────────────────────────────────────────────── */
+
+  .cred-band {
+    background: #1d2738;
+    padding-block: 0;
+    border-top: 1px solid rgba(255,255,255,0.07);
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+
+  .cred-band__inner {
+    max-width: var(--shell);
+    margin-inline: auto;
+    padding: 40px 32px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .cred {
+    padding: 2px 36px;
+    border-left: 1px solid rgba(255,255,255,0.10);
+  }
+  .cred:first-child { border-left: none; padding-left: 0; }
+  .cred:last-child  { padding-right: 0; }
+
+  .cred__mark {
+    display: block;
+    width: 28px;
+    height: 3px;
+    background: var(--copper);
+    margin-bottom: 16px;
+  }
+
+  .cred__lead {
+    font-family: var(--head-cond);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.22;
+    margin: 0 0 8px;
+    color: #fff;
+  }
+
+  .cred__detail {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.5;
+    color: rgba(255,255,255,0.66);
+    font-weight: 300;
+  }
+
+  @media (max-width: 1024px) {
+    .cred-band__inner { grid-template-columns: 1fr 1fr; gap: 32px 0; padding: 36px 24px; }
+    .cred { padding: 2px 28px; }
+    .cred:nth-child(odd)  { border-left: none; padding-left: 0; }
+    .cred:nth-child(even) { padding-right: 0; }
+  }
+
+  @media (max-width: 640px) {
+    .cred-band__inner { grid-template-columns: 1fr; gap: 26px; padding: 30px 20px; }
+    .cred { padding: 0; border-left: none; }
+    .cred__mark { margin-bottom: 12px; }
+  }
 </style>
 </head>
 <body>
@@ -1523,6 +1589,32 @@
           <span class="arrow"></span>
         </button>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── CREDIBILITY BAND ───────── -->
+<section class="cred-band">
+  <div class="cred-band__inner">
+    <div class="cred">
+      <span class="cred__mark"></span>
+      <p class="cred__lead">Complete Legal &amp; Liability Protection</p>
+      <p class="cred__detail">Your office stays protected, no matter what.</p>
+    </div>
+    <div class="cred">
+      <span class="cred__mark"></span>
+      <p class="cred__lead">750+ Hours of Additional Training</p>
+      <p class="cred__detail">Surgery-focused, every hour of it.</p>
+    </div>
+    <div class="cred">
+      <span class="cred__mark"></span>
+      <p class="cred__lead">Board-Certified CRNAs</p>
+      <p class="cred__detail">On hand for more complex procedures and patients.</p>
+    </div>
+    <div class="cred">
+      <span class="cred__mark"></span>
+      <p class="cred__lead">We Set Up in Your Operatories</p>
+      <p class="cred__detail">The rooms you designate — minimal disruption to your day.</p>
     </div>
   </div>
 </section>
