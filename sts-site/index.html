@@ -1709,13 +1709,11 @@
   <span class="section-label">Our Dentists</span>
 
   <div class="specialist__grid">
-    <!-- TODO (photo): replace with a portrait of Dr. Bechtel that does NOT show the
-         Friendly Dental Co. logo/branding behind him. The current image still shows it;
-         no branding-free photo of him is available in the repo yet. -->
     <figure class="specialist__photo">
+      <!-- Logo-free portrait (dr-friend-600.jpg, 600x899). The old dr-friend-1200.jpg
+           still shows the Friendly Dental Co. logo, so it is intentionally NOT referenced;
+           re-add a 1200w srcset entry only once a logo-free hi-res version exists. -->
       <img src="assets/img/dr-friend-600.jpg"
-           srcset="assets/img/dr-friend-600.jpg 600w, assets/img/dr-friend-1200.jpg 1200w"
-           sizes="(max-width: 1024px) 100vw, 600px"
            alt="Dr. Bechtel, founder of Southern Travel Surgery"
            loading="lazy" decoding="async">
     </figure>
