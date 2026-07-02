@@ -1,6 +1,8 @@
 // Vercel serverless function (Node runtime, CommonJS).
 // Receives a provider "Contact the Doctor" inquiry and emails it to the office via Resend.
 // The Resend API key is read from the environment and never exposed to the client.
+// The email body is built DYNAMICALLY from the submitted payload (label/value pairs),
+// so any future field added to the form's payload appears in the email automatically.
 const { Resend } = require('resend');
 
 const esc = (s) =>
@@ -42,12 +44,14 @@ module.exports = async function handler(req, res) {
   const str = (v) => (typeof v === 'string' ? v.trim() : '');
   const arr = (v) => (Array.isArray(v) ? v.filter((x) => typeof x === 'string' && x.trim()) : []);
 
+  // Known fields, in the form's visual order (this order drives the email body).
   const data = {
-    annual_collections: str(body.annual_collections),
     desired_service_mix: str(body.desired_service_mix),
     best_days: arr(body.best_days),
     available_operatories: str(body.available_operatories),
     participating_insurances: arr(body.participating_insurances),
+    insurance_other: str(body.insurance_other),
+    annual_collections: str(body.annual_collections),
     practice_name: str(body.practice_name),
     contact_name: str(body.contact_name),
     email: str(body.email),
@@ -61,10 +65,14 @@ module.exports = async function handler(req, res) {
     'Medicaid / Skygen / Aetna',
     'Medicaid / United Healthcare',
     'Medicaid / Avesis / WellCare',
+    'Delta Dental',
+    'Other',
   ];
   data.best_days = data.best_days.filter((d) => DAYS.includes(d));
   data.participating_insurances = data.participating_insurances.filter((i) => INSURANCES.includes(i));
   if (!OPERATORIES.includes(data.available_operatories)) data.available_operatories = '';
+  // The free-text plan name only applies while "Other" is selected.
+  if (!data.participating_insurances.includes('Other')) data.insurance_other = '';
 
   // Server-side validation (don't trust the client).
   const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email);
@@ -97,61 +105,64 @@ module.exports = async function handler(req, res) {
     submittedAt = new Date().toISOString();
   }
 
-  const days = data.best_days.join(', ');
-  const insurances = data.participating_insurances.join(', ');
+  // ── Dynamic email body ──────────────────────────────────────────────────
+  // Render EVERY submitted field as a "Label: value" pair by iterating the
+  // payload — never by referencing fields one at a time — so a future form
+  // field shows up in the email with no change here. Known keys use the
+  // form's question text; unknown keys fall back to a humanized key name.
+  const OMIT = new Set(['company']); // honeypot — never rendered
+  const LABELS = {
+    desired_service_mix: 'What service mix are you hoping to have?',
+    best_days: 'What days work best for us to come operate in your office?',
+    available_operatories: 'How many operatories can you make available?',
+    participating_insurances: 'What insurances do you currently participate with?',
+    insurance_other: 'Other insurance (plan name)',
+    annual_collections: 'Approximately what is your office collecting per year?',
+    practice_name: 'Practice name',
+    contact_name: 'Contact name',
+    email: 'Email',
+    phone: 'Phone',
+  };
+  const humanize = (key) => {
+    const s = String(key).replace(/[_-]+/g, ' ').trim();
+    return s ? s.charAt(0).toUpperCase() + s.slice(1) : String(key);
+  };
+
+  // Start from the sanitized known fields (form order), then append any extra
+  // payload keys (future form fields) with generic string/array sanitizing.
+  const rendered = { ...data };
+  for (const [key, raw] of Object.entries(body)) {
+    if (key in rendered || OMIT.has(key)) continue;
+    if (Array.isArray(raw)) rendered[key] = arr(raw);
+    else if (typeof raw === 'string') rendered[key] = raw.trim();
+    else if (typeof raw === 'number' || typeof raw === 'boolean') rendered[key] = String(raw);
+  }
+
+  const fields = Object.entries(rendered)
+    .map(([key, v]) => ({
+      key,
+      label: LABELS[key] || humanize(key),
+      value: Array.isArray(v) ? v.join(', ') : v,
+    }))
+    .filter((f) => f.value); // optional fields (e.g. insurance_other) drop out when empty
 
   const text = `New website question submitted
 
-Practice Information:
-Practice name: ${data.practice_name}
-Contact name: ${data.contact_name}
-Email: ${data.email}
-Phone: ${data.phone}
+${fields.map((f) => `${f.label}: ${f.value}`).join('\n')}
 
-Opportunity:
-Approximate annual collections: ${data.annual_collections}
-Desired service mix: ${data.desired_service_mix}
-Best days for STS to visit: ${days}
-Available operatories: ${data.available_operatories}
-Participating insurances: ${insurances}
-
-Submitted:
 Submitted at: ${submittedAt}
 Source: www.stsurgery.com Contact the Doctor modal`;
 
-  const labelCell = 'padding:4px 12px 4px 0;color:#5a6776;white-space:nowrap;vertical-align:top';
-  const valueCell = 'padding:4px 0;color:#273349';
-  const row = (label, value) =>
-    `<tr><td style="${labelCell}">${esc(label)}</td><td style="${valueCell}">${esc(value)}</td></tr>`;
-  const rowMl = (label, value) =>
-    `<tr><td style="${labelCell}">${esc(label)}</td><td style="${valueCell}">${escMl(value)}</td></tr>`;
-  const heading = 'font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:#b88560;margin:20px 0 6px';
+  const labelStyle = 'font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:#5a6776';
+  const valueStyle = 'font-size:14px;color:#273349';
+  const block = (f) =>
+    `<p style="margin:0 0 14px"><span style="${labelStyle}">${esc(f.label)}</span><br><span style="${valueStyle}">${escMl(f.value)}</span></p>`;
 
   const html = `<div style="font-family:Arial,Helvetica,sans-serif;color:#273349;max-width:640px;line-height:1.5">
-  <h2 style="font-size:18px;margin:0 0 4px">New website question submitted</h2>
-
-  <h3 style="${heading}">Practice Information</h3>
-  <table style="border-collapse:collapse;font-size:14px">
-    ${row('Practice name:', data.practice_name)}
-    ${row('Contact name:', data.contact_name)}
-    ${row('Email:', data.email)}
-    ${row('Phone:', data.phone)}
-  </table>
-
-  <h3 style="${heading}">Opportunity</h3>
-  <table style="border-collapse:collapse;font-size:14px">
-    ${row('Approximate annual collections:', data.annual_collections)}
-    ${rowMl('Desired service mix:', data.desired_service_mix)}
-    ${row('Best days for STS to visit:', days)}
-    ${row('Available operatories:', data.available_operatories)}
-    ${row('Participating insurances:', insurances)}
-  </table>
-
-  <h3 style="${heading}">Submitted</h3>
-  <table style="border-collapse:collapse;font-size:14px">
-    ${row('Submitted at:', submittedAt)}
-    ${row('Source:', 'www.stsurgery.com Contact the Doctor modal')}
-  </table>
+  <h2 style="font-size:18px;margin:0 0 16px">New website question submitted</h2>
+  ${fields.map(block).join('\n  ')}
+  <hr style="border:none;border-top:1px solid #e3e6ea;margin:18px 0 12px">
+  <p style="margin:0;font-size:12px;color:#5a6776">Submitted at: ${esc(submittedAt)}<br>Source: www.stsurgery.com Contact the Doctor modal</p>
 </div>`;
 
   try {

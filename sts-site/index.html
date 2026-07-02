@@ -1178,6 +1178,14 @@
 
   .field textarea { min-height: 130px; line-height: 1.55; }
 
+  /* fine print beneath a field (e.g. collections disclaimer) */
+  .field__hint {
+    margin: 0;
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+  }
+
   .form__submit {
     align-self: flex-start;
     margin-top: 8px;
@@ -2171,18 +2179,13 @@
     <p class="contact-modal__intro">For referring dental offices. Tell us about your practice and Dr. Bechtel will follow up.</p>
 
     <form class="form" id="contactForm" novalidate>
-      <div class="field" data-field="annual_collections">
-        <label for="annual_collections">Approximately what is your office collecting per year?</label>
-        <input type="text" id="annual_collections" name="annual_collections" autocomplete="off" aria-required="true">
-      </div>
-
       <div class="field" data-field="desired_service_mix">
         <label for="desired_service_mix">What service mix are you hoping to have?</label>
         <textarea id="desired_service_mix" name="desired_service_mix" aria-required="true"></textarea>
       </div>
 
       <div class="field" data-field="best_days">
-        <label>What days work best for us to come to your office?</label>
+        <label>What days work best for us to come operate in your office?</label>
         <div class="toggle-group" data-key="best_days" data-select="multi" role="group" aria-label="Best days for STS to visit" aria-required="true">
           <button type="button" class="toggle-btn" data-value="Monday" aria-pressed="false">Monday</button>
           <button type="button" class="toggle-btn" data-value="Tuesday" aria-pressed="false">Tuesday</button>
@@ -2207,7 +2210,21 @@
           <button type="button" class="toggle-btn" data-value="Medicaid / Skygen / Aetna" aria-pressed="false">Medicaid / Skygen / Aetna</button>
           <button type="button" class="toggle-btn" data-value="Medicaid / United Healthcare" aria-pressed="false">Medicaid / United Healthcare</button>
           <button type="button" class="toggle-btn" data-value="Medicaid / Avesis / WellCare" aria-pressed="false">Medicaid / Avesis / WellCare</button>
+          <button type="button" class="toggle-btn" data-value="Delta Dental" aria-pressed="false">Delta Dental</button>
+          <button type="button" class="toggle-btn" data-value="Other" aria-pressed="false">Other</button>
         </div>
+      </div>
+
+      <!-- Revealed only while the "Other" insurance option is selected -->
+      <div class="field" data-field="insurance_other" hidden>
+        <label for="insurance_other">Other insurance — plan name</label>
+        <input type="text" id="insurance_other" name="insurance_other" autocomplete="off">
+      </div>
+
+      <div class="field" data-field="annual_collections">
+        <label for="annual_collections">Approximately what is your office collecting per year?</label>
+        <input type="text" id="annual_collections" name="annual_collections" autocomplete="off" aria-required="true">
+        <p class="field__hint">Generally, an office collecting about one million can substantiate one day of oral surgery per month.</p>
       </div>
 
       <div class="form__row">
@@ -2410,6 +2427,20 @@
       modal.querySelectorAll('.toggle-group[data-key="' + key + '"] .toggle-btn.is-selected')
     ).map((b) => b.getAttribute('data-value'));
 
+    // "Other" insurance reveals a short free-text field for the plan name
+    const insuranceOtherBtn = modal.querySelector('.toggle-group[data-key="participating_insurances"] .toggle-btn[data-value="Other"]');
+    const insuranceOtherField = modal.querySelector('[data-field="insurance_other"]');
+    const syncInsuranceOther = () => {
+      if (!insuranceOtherBtn || !insuranceOtherField) return;
+      const on = insuranceOtherBtn.classList.contains('is-selected');
+      insuranceOtherField.hidden = !on;
+      if (!on) {
+        form.insurance_other.value = '';
+        insuranceOtherField.classList.remove('is-invalid');
+      }
+    };
+    if (insuranceOtherBtn) insuranceOtherBtn.addEventListener('click', syncInsuranceOther);
+
     const setStatus = (msg, type) => {
       statusEl.textContent = msg || '';
       statusEl.className = 'form__status' + (type ? ' is-' + type : '');
@@ -2427,11 +2458,12 @@
       if (sending) return;
 
       const data = {
-        annual_collections: form.annual_collections.value.trim(),
         desired_service_mix: form.desired_service_mix.value.trim(),
         best_days: selected('best_days'),
         available_operatories: selected('available_operatories')[0] || '',
         participating_insurances: selected('participating_insurances'),
+        insurance_other: form.insurance_other.value.trim(),
+        annual_collections: form.annual_collections.value.trim(),
         practice_name: form.practice_name.value.trim(),
         contact_name: form.contact_name.value.trim(),
         email: form.email.value.trim(),
@@ -2449,11 +2481,11 @@
         if (control) control.setAttribute('aria-invalid', bad ? 'true' : 'false');
         if (bad && !firstInvalid) firstInvalid = field;
       };
-      mark('annual_collections', !data.annual_collections);
       mark('desired_service_mix', !data.desired_service_mix);
       mark('best_days', data.best_days.length === 0);
       mark('available_operatories', !data.available_operatories);
       mark('participating_insurances', data.participating_insurances.length === 0);
+      mark('annual_collections', !data.annual_collections);
       mark('practice_name', !data.practice_name);
       mark('contact_name', !data.contact_name);
       mark('email', !emailOk);
@@ -2482,6 +2514,7 @@
         if (res.ok && json.ok) {
           form.reset();
           clearSelections();
+          syncInsuranceOther();
           setStatus('Thanks — Dr. Bechtel will be in touch.', 'success');
         } else {
           setStatus("We couldn't send your inquiry. Please try again or contact us directly.", 'error');
