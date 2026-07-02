@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Southern Travel Surgery — Mobile Oral Surgery for Referring Dentists</title>
+<title>Southern Travel Surgery — Portable Oral Surgery for Referring Dentists</title>
 
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon-180.png">
@@ -206,7 +206,7 @@
   .nav__hamburger.is-active span::before { top: 0; transform: rotate(45deg); }
   .nav__hamburger.is-active span::after  { top: 0; transform: rotate(-45deg); }
 
-  /* Mobile dropdown menu (toggled by hamburger) */
+  /* Small-screen dropdown menu (toggled by hamburger) */
   .nav__menu {
     display: none;
     border-top: 1px solid var(--line);
@@ -1253,7 +1253,7 @@
     margin: 0;
   }
 
-  /* modal reuses .form / .field, but flush (no card border) and single-column on mobile */
+  /* modal reuses .form / .field, but flush (no card border) and single-column on small screens */
   .contact-modal .form { padding: 24px 0 0; border: 0; gap: 20px; }
   .contact-modal .form__row { grid-template-columns: 1fr; }
   @media (min-width: 600px) {
@@ -1590,7 +1590,7 @@
     </div>
   </div>
 
-  <nav class="nav__menu" id="navMenu" aria-label="Mobile navigation">
+  <nav class="nav__menu" id="navMenu" aria-label="Site navigation">
     <ul>
       <li><button type="button" data-contact-open>Contact the Doctor</button></li>
       <li><a href="#reviews">Patient Reviews</a></li>
@@ -1602,7 +1602,7 @@
 <section class="hero" id="top">
   <div class="hero__inner">
     <div>
-      <div class="hero__eyebrow">Mobile Oral Surgery · For Referring Dental Practices</div>
+      <div class="hero__eyebrow">Portable Oral Surgery · For Referring Dental Practices</div>
       <h1 class="hero__title">Southern Travel Surgery</h1>
       <span class="copper-rule"></span>
       <p class="hero__sub">
@@ -1637,7 +1637,7 @@
     <div class="cred">
       <span class="cred__mark"></span>
       <p class="cred__lead">Complete Legal &amp; Liability Protection</p>
-      <p class="cred__detail">Your office stays protected, no matter what.</p>
+      <p class="cred__detail">We are a completely separate entity — your office stays separated and protected, no matter what.</p>
     </div>
     <div class="cred">
       <span class="cred__mark"></span>
@@ -1647,7 +1647,7 @@
     <div class="cred">
       <span class="cred__mark"></span>
       <p class="cred__lead">Board-Certified CRNAs</p>
-      <p class="cred__detail">On hand for more complex procedures and patients.</p>
+      <p class="cred__detail">Certified Registered Nurse Anesthetists (CRNAs), on hand for more complex procedures and complex patients.</p>
     </div>
     <div class="cred">
       <span class="cred__mark"></span>
@@ -1694,11 +1694,16 @@
   </div>
 </section>
 
-<!-- ───────── OUR SURGEON (DR. FRIEND) ───────── -->
+<!-- ───────── OUR DENTISTS (DR. FRIEND) ───────── -->
 <section class="specialist shell">
-  <span class="section-label">Our Surgeon</span>
+  <!-- Heading intentionally plural: one dentist shown now, more providers planned (per Dr. Bechtel).
+       Reverses the earlier "Our Specialist" → "Our Surgeon" change. -->
+  <span class="section-label">Our Dentists</span>
 
   <div class="specialist__grid">
+    <!-- TODO (photo): replace with a portrait of Dr. Bechtel that does NOT show the
+         Friendly Dental Co. logo/branding behind him. The current image still shows it;
+         no branding-free photo of him is available in the repo yet. -->
     <figure class="specialist__photo">
       <img src="assets/img/dr-friend-600.jpg"
            srcset="assets/img/dr-friend-600.jpg 600w, assets/img/dr-friend-1200.jpg 1200w"
@@ -1709,7 +1714,7 @@
 
     <div class="specialist__body">
       <h2 class="specialist__name">Dr. Bechtel</h2>
-      <div class="specialist__role">Founder · Surgical &amp; Implant Dentistry</div>
+      <div class="specialist__role">Founder, Surgical and Implant Dentistry</div>
       <span class="copper-rule copper-rule--ink"></span>
 
       <p>
@@ -1729,6 +1734,14 @@
         patient already trusts.
       </p>
 
+      <!-- ACCURACY FLAG — confirm with Dr. Bechtel before publish: implantology is not an
+           ADA-recognized dental specialty, and some state boards restrict "specialty"/"specialist"
+           to recognized specialties. Kept verbatim per instruction; flag for his/counsel review. -->
+      <p>
+        He is consistently growing his surgical and clinical skill set, investing heavily in CE and
+        currently pursuing a specialty certification in implantology.
+      </p>
+
       <ul class="specialist__creds">
         <li><span>DMD</span> Kentucky-licensed; advanced surgical &amp; implant focus</li>
         <li><span>Sedation Permit</span> Board-issued sedation &amp; anesthesia permit</li>
@@ -1737,11 +1750,16 @@
 
       <div class="specialist__training">
         <span class="specialist__training-label">Training &amp; Fellowships</span>
+        <!-- CONFIRM with Dr. Bechtel: reconcile the full combined credential list.
+             "CSI Graduate in Full Arch" may overlap "Colorado Surgical Institute — Graduate"
+             and "Full Arch Masters — Graduate" above; verify these do not duplicate or conflict. -->
         <ul class="specialist__courses">
           <li>Associate Fellow, American Academy of Implant Dentistry (AAID)</li>
           <li>IV Sedation Implant Pathway — Graduate</li>
           <li>Colorado Surgical Institute — Graduate</li>
           <li>Full Arch Masters — Graduate</li>
+          <li>Chicago MaxiCourse — Graduate</li>
+          <li>CSI Graduate in Full Arch</li>
         </ul>
       </div>
     </div>
@@ -1801,7 +1819,7 @@
     <aside class="faq__label-panel">
       <div class="faq__label">Frequently<br>Asked<br>Questions</div>
       <p class="faq__sublabel">
-        Most referring offices have the same five questions. Here's how we answer them.
+        Most referring offices ask the same questions. Here's how we answer them.
       </p>
     </aside>
 
@@ -1831,9 +1849,12 @@
           <div class="faq__a">
             <div class="faq__a-inner">
               <p>
-                You tell us the days that work for your office and how many operatories you
-                can make available, and we build our schedule around yours. Surgery happens
-                on-site, on a day that fits your existing flow.
+                Most partner offices book us one to two full days per month. You block the day
+                on your schedule and fill it with surgeries — ranging from single teeth to
+                full-mouth extractions. We arrive, set up in the operatories you designate, use
+                the sterilizing equipment, and leave the rooms as we found them. Insurance
+                verification is handled by our coordinator, and billing and code completion is
+                handled by our team.
               </p>
             </div>
           </div>
@@ -1857,24 +1878,23 @@
 
         <li class="faq__item">
           <button class="faq__q" type="button" aria-expanded="false">
-            <span>How does payment &amp; billing work?</span>
+            <span>Who handles treatment planning &amp; coding?</span>
             <span class="faq__icon" aria-hidden="true"></span>
           </button>
           <div class="faq__a">
             <div class="faq__a-inner">
               <p>
-                STS bills under its own account, not yours — so your office's insurance
-                participation isn't a factor, and there's no billing work on your front desk
-                for the surgical portion. Patient responsibility is arranged before the
-                surgery date, and we partner with a national healthcare financing provider so
-                care fits the patient's budget.
+                It can go both ways. If you'd prefer us to diagnose and treatment plan, we're
+                happy to. Our goal is to support you and your complex treatment planning, so if
+                you have a direction or a treatment plan you'd like us to follow, please leave
+                us access to review it.
               </p>
             </div>
           </div>
         </li>
 
-        <!-- Item #5 — Do NOT add specific equipment / sterilization requirements to this
-             answer until confirmed with Dr. Bechtel. -->
+        <!-- ACCURACY FLAG — verify "credentialed, licensed, and fully insured in every county
+             we serve" is true for ALL locations currently served before publish. -->
         <li class="faq__item">
           <button class="faq__q" type="button" aria-expanded="false">
             <span>What does my office need to provide?</span>
@@ -1883,35 +1903,39 @@
           <div class="faq__a">
             <div class="faq__a-inner">
               <p>
-                An operatory you designate and access on the scheduled day. We bring the
-                surgical team and set up in the space you assign.
+                One to three operatories/chairs, access to the sterilization room, and
+                disposables (anesthetic, gloves, patient bibs, etc.). We bring our own sterile
+                instruments, surgical handpieces, monitoring and emergency equipment, and IV
+                setup. We are credentialed, licensed, and fully insured in every county we
+                serve. We only ask that you have someone on site who is comfortable checking
+                patients in and out, familiar with your office's flow, and able to assist with
+                back-office needs should something come up (Wi-Fi issue, supply storage, etc.).
               </p>
             </div>
           </div>
         </li>
 
-        <!-- ───── Held FAQ items (removed from the live set of five).
-             Restore by moving the desired <li> out of its comment wrapper. ───── -->
-
-        <!-- REMOVED — safe to restore; omitted to keep the set to five highest-priority questions.
+        <!-- COMPLIANCE FLAG — the flat daily-rate (not production-based) model is deliberate
+             for Stark / anti-kickback reasons. Confirm this wording matches the actual lease
+             agreement terms before publish. -->
         <li class="faq__item">
           <button class="faq__q" type="button" aria-expanded="false">
-            <span>Who handles treatment planning &amp; coding?</span>
+            <span>How does payment &amp; billing work?</span>
             <span class="faq__icon" aria-hidden="true"></span>
           </button>
           <div class="faq__a">
             <div class="faq__a-inner">
               <p>
-                You diagnose and treatment plan the way you always have. We review every case in
-                advance with you — typically a 10-minute screen-share the week prior — and confirm
-                CDT codes, sedation type, and any imaging we need.
+                We are a completely separate entity and handle our own payment and billing. We
+                rent your space for a daily rate. We handle all patient payments and billing.
+                The host practice bills STS a clean, single daily rate — it is not based on
+                production or collections. All production and collections are the responsibility
+                of STS.
               </p>
             </div>
           </div>
         </li>
-        -->
 
-        <!-- HOLD — publish only after the actual post-op protocol is confirmed.
         <li class="faq__item">
           <button class="faq__q" type="button" aria-expanded="false">
             <span>Who handles post-op calls &amp; complications?</span>
@@ -1920,17 +1944,21 @@
           <div class="faq__a">
             <div class="faq__a-inner">
               <p>
-                We do. Every patient gets a 24-hour follow-up call from our team, and a direct
-                line to the surgeon for 14 days post-op. If a patient calls your office, your
-                front desk has a single number to forward to — we take it from there and keep
-                you in the loop.
+                The host office handles what they're comfortable with, and we're always here to
+                help. Each patient gets a link to reach our team directly for more complicated
+                concerns. For post-op pain and suture removal, we encourage the patient to see
+                their host office — and we're always here to coach, or to return if needed to
+                give additional, more tailored follow-up care. (Spoiler alert: we have almost no
+                follow-ups.)
               </p>
             </div>
           </div>
         </li>
-        -->
 
-        <!-- HOLD — "complete protection" wording must match actual policy scope; confirm with Dr. Bechtel before restoring.
+        <!-- COMPLIANCE FLAG — HIGH PRIORITY. This answer makes specific legal claims
+             (Stark / anti-kickback compliance; who built the structure; licensure in each
+             jurisdiction). Legal counsel should review this exact language before it goes live.
+             Kept verbatim per instruction; do not publish unreviewed. -->
         <li class="faq__item">
           <button class="faq__q" type="button" aria-expanded="false">
             <span>What about liability?</span>
@@ -1939,22 +1967,31 @@
           <div class="faq__a">
             <div class="faq__a-inner">
               <p>
-                Surgical liability rests with Dr. Bechtel and Southern Travel Surgery — not
-                your practice. We carry our own malpractice and general liability coverage,
-                operate under our own state license in each jurisdiction we serve, and provide
-                proof of insurance and credentialing to every host practice on file.
+                All surgical liability rests with Dr. Bechtel and Southern Travel Surgery, not
+                your practice. Our consent forms with the patient and our lease agreement with
+                the host practice clearly delineate us as a completely separate service, entity,
+                and team, there for the convenience of the patient only. We are separate in
+                every way, and that carries an immense amount of protection in both directions.
+                We carry our own malpractice and general liability coverage. We operate under
+                our own state licenses in each jurisdiction we serve and provide proof of
+                insurance and credentialing to every host practice on file.
               </p>
               <p>
-                Your office is acting as the facility host, not the surgical provider. We're
-                happy to share our policy specifics and walk your office through the
-                arrangement with your own counsel if helpful.
+                Our business structure was built by the legal team of a large hospital
+                conglomerate — the same team that has structured countless similar healthcare
+                arrangements across Ohio and Kentucky. This is a tried-and-true system designed
+                in compliance with anti-kickback and Stark laws, structured to protect the host
+                office from liability for our procedures, and vice versa.
               </p>
             </div>
           </div>
         </li>
-        -->
 
-        <!-- HOLD — answering definitively on a public site is a legal representation; needs sign-off before restoring.
+        <!-- ACCURACY FLAG — confirm "portable clinic" is an actual recognized classification
+             in KY before publish. Note: original said "traveling specialist arrangement";
+             "specialist" softened to "provider" to stay consistent with the site's
+             no-"specialist" standard — confirm acceptable to Dr. Bechtel, or restore his exact
+             wording. -->
         <li class="faq__item">
           <button class="faq__q" type="button" aria-expanded="false">
             <span>Is this legal?</span>
@@ -1963,20 +2000,13 @@
           <div class="faq__a">
             <div class="faq__a-inner">
               <p>
-                Yes. Mobile and traveling specialist arrangements are a long-standing,
-                well-established model in dentistry — used routinely by anesthesiologists,
-                pediatric specialists, and oral surgeons across the country. STS operates
-                under standard host-facility agreements that satisfy state dental board and
-                anti-kickback requirements.
-              </p>
-              <p>
-                We provide template agreements vetted by healthcare counsel and are happy to
-                accommodate any review your practice's attorney recommends before onboarding.
+                Absolutely. We are defined as a 'portable clinic' and operate within a traveling
+                provider arrangement — a long-standing, well-established model in dentistry that
+                is used routinely across many fields of medicine.
               </p>
             </div>
           </div>
         </li>
-        -->
       </ul>
     </div>
   </div>
@@ -2089,7 +2119,7 @@
   <div class="footer__inner">
     <div class="footer__brand">
       <img src="assets/sts-logo.png" alt="Southern Travel Surgery" loading="lazy" decoding="async">
-      <p>Mobile surgical &amp; implant dentistry for referring practices across Kentucky.</p>
+      <p>Portable surgical &amp; implant dentistry for referring practices across Kentucky.</p>
     </div>
 
     <div class="footer__col">
@@ -2234,7 +2264,7 @@
     });
   })();
 
-  // Mobile menu — hamburger toggles the dropdown nav
+  // Small-screen menu — hamburger toggles the dropdown nav
   (() => {
     const hamburger = document.querySelector('.nav__hamburger');
     const menu = document.getElementById('navMenu');
