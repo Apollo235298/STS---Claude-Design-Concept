@@ -1068,6 +1068,7 @@
     font-size: 12px;
     color: var(--navy);
     cursor: pointer;
+    text-decoration: none;
     transition: border-color .18s ease, color .18s ease;
   }
   .reviews__google:hover { border-color: var(--copper); color: var(--copper); }
@@ -1091,6 +1092,12 @@
     color: var(--ink-soft);
   }
   .reviews__rating strong { color: var(--navy); font-weight: 600; }
+  a.reviews__rating {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color .18s ease;
+  }
+  a.reviews__rating:hover { color: var(--copper); }
 
   /* ─────────────────────────────────────────────────
      CONTACT FORM (PAST PATIENTS)
@@ -1401,6 +1408,18 @@
     line-height: 1.6;
     color: rgba(255,255,255,0.55);
   }
+
+  .footer__google {
+    margin-top: 22px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    transition: color .18s ease;
+  }
+  .footer__google:hover { color: var(--copper-soft); }
 
   .footer__col h4 {
     font-family: var(--head-cond);
@@ -2054,9 +2073,9 @@
     </div>
   </div>
 
-  <!-- HOLD — Google Business review cards + "Leave a Google Review" CTA removed for now;
-       will be re-added at a later date. Restore by deleting the two comment wrappers below.
-       CSS (.review*, .reviews__cta, .reviews__google, .g-logo, .reviews__rating) left intact. -->
+  <!-- HOLD — sample Google review cards below stay hidden until real Google reviews exist
+       (pending sign-off). Restore by deleting the two comment wrappers below.
+       CSS (.review*) left intact. The "Leave a Google Review" CTA that follows is live. -->
   <!--
   <div class="reviews__grid">
     <article class="review">
@@ -2098,15 +2117,15 @@
       </div>
     </article>
   </div>
+  -->
 
   <div class="reviews__cta">
-    <button class="reviews__google" type="button">
+    <a class="reviews__google" href="https://g.page/r/CYkb9SAEt_azEBM/review" target="_blank" rel="noopener">
       <span class="g-logo"></span>
       Leave a Google Review
-    </button>
-    <div class="reviews__rating"><strong>4.9</strong> / 5 · 87 verified reviews</div>
+    </a>
+    <a class="reviews__rating" href="https://share.google/gz9NmVeiuppJa28MC" target="_blank" rel="noopener">See our reviews on Google</a>
   </div>
-  -->
 </section>
 
 <!-- ───────── CTA BAND ───────── -->
@@ -2128,6 +2147,10 @@
     <div class="footer__brand">
       <img src="assets/sts-logo.png" alt="Southern Travel Surgery" loading="lazy" decoding="async">
       <p>Portable surgical &amp; implant dentistry for referring practices across Kentucky.</p>
+      <a class="footer__google" href="https://share.google/gz9NmVeiuppJa28MC" target="_blank" rel="noopener">
+        <span class="g-logo"></span>
+        Find us on Google
+      </a>
     </div>
 
     <div class="footer__col">
@@ -2144,7 +2167,7 @@
       <h4>For Patients</h4>
       <ul>
         <li><a href="#">Post-Op Instructions</a></li>
-        <li><a href="#reviews">Leave a Review</a></li>
+        <li><a href="https://g.page/r/CYkb9SAEt_azEBM/review" target="_blank" rel="noopener">Leave a Review</a></li>
         <li><a href="#">Contact Us</a></li>
         <li><a href="#">Privacy</a></li>
       </ul>
