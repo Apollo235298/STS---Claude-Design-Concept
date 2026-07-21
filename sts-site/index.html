@@ -402,7 +402,7 @@
   }
 
   .hero__cta-col {
-    padding-bottom: 16px;
+    margin-top: 28px;
   }
 
   .hero__cta-label {
@@ -1474,6 +1474,13 @@
     flex-wrap: wrap;
   }
 
+  .footer__bottom a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .footer__bottom a:hover { color: var(--copper); }
+
   /* ─────────────────────────────────────────────────
      RESPONSIVE
      ───────────────────────────────────────────────── */
@@ -1484,7 +1491,6 @@
 
     .hero__inner { padding: 80px 24px 72px; gap: 40px; }
     .hero__media { grid-template-columns: 1fr; gap: 28px; align-items: stretch; }
-    .hero__cta-col { padding-bottom: 0; }
 
     section { padding-block: 84px; }
 
@@ -1627,39 +1633,6 @@
   </nav>
 </header>
 
-<!-- ───────── HERO ───────── -->
-<section class="hero" id="top">
-  <div class="hero__inner">
-    <div>
-      <div class="hero__eyebrow">Portable Oral Surgery · For Referring Dental Practices</div>
-      <h1 class="hero__title">Southern Travel Surgery</h1>
-      <span class="copper-rule"></span>
-      <p class="hero__sub">
-        Complex cases handled on-site, by a credentialed surgical team. No referrals out, no patients
-        lost — just advanced care happening right where you already practice.
-      </p>
-    </div>
-
-    <div class="hero__media">
-      <div class="hero__video" role="button" tabindex="0" aria-label="Play introduction video" data-video-id="lgvDoBQ09bE">
-        <img src="assets/img/hero-video.jpg" alt="Southern Travel Surgery introduction video" width="1280" height="720" decoding="async">
-        <div class="hero__playbtn">
-          <div class="hero__playbtn-circle"></div>
-        </div>
-        <div class="hero__video-caption">Watch the Intro</div>
-      </div>
-
-      <div class="hero__cta-col">
-        <div class="hero__cta-label">Ready to refer?</div>
-        <button class="hero__cta" type="button" data-contact-open>
-          Contact the Doctor
-          <span class="arrow"></span>
-        </button>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ───────── CREDIBILITY BAND ───────── -->
 <section class="cred-band">
   <div class="cred-band__inner">
@@ -1682,6 +1655,41 @@
       <span class="cred__mark"></span>
       <p class="cred__lead">We Set Up in Your Operatories</p>
       <p class="cred__detail">The rooms you designate — minimal disruption to your day.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── HERO ───────── -->
+<section class="hero" id="top">
+  <div class="hero__inner">
+    <div>
+      <div class="hero__eyebrow">Portable Oral Surgery · For Referring Dental Practices</div>
+      <h1 class="hero__title">Southern Travel Surgery</h1>
+      <span class="copper-rule"></span>
+      <p class="hero__sub">
+        Complex cases handled on-site, by a credentialed surgical team. No referrals out, no patients
+        lost — just advanced care happening right where you already practice.
+      </p>
+    </div>
+
+    <div class="hero__media">
+      <div>
+        <div class="hero__video" role="button" tabindex="0" aria-label="Play introduction video" data-video-id="lgvDoBQ09bE">
+          <img src="assets/img/hero-video.jpg" alt="Southern Travel Surgery introduction video" width="1280" height="720" decoding="async">
+          <div class="hero__playbtn">
+            <div class="hero__playbtn-circle"></div>
+          </div>
+          <div class="hero__video-caption">Watch the Intro</div>
+        </div>
+
+        <div class="hero__cta-col">
+          <div class="hero__cta-label">Ready to refer?</div>
+          <button class="hero__cta" type="button" data-contact-open>
+            Contact the Doctor
+            <span class="arrow"></span>
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -2188,6 +2196,7 @@
 
   <div class="footer__bottom">
     <div>© 2026 Southern Travel Surgery, LLC. All rights reserved.</div>
+    <div><a href="https://g.page/r/CYkb9SAEt_azEBM/review" target="_blank" rel="noopener">Leave Us a Review</a></div>
     <div>Licensed in KY</div>
   </div>
 </footer>
