@@ -255,6 +255,7 @@
     display: flex;
     align-items: stretch;
     overflow: hidden;
+    padding-top: 0; /* top gap is owned by .hero__inner, not the global section padding */
   }
 
   .hero::before {
@@ -283,7 +284,7 @@
     width: 100%;
     max-width: var(--shell);
     margin-inline: auto;
-    padding: 110px 32px 96px;
+    padding: 48px 32px 96px;
     display: flex;
     flex-direction: column;
     gap: 56px;
@@ -1489,7 +1490,7 @@
     .nav__inner { grid-template-columns: auto 1fr auto; padding: 12px 20px; }
     .nav__right .nav__textlink { display: none; }
 
-    .hero__inner { padding: 80px 24px 72px; gap: 40px; }
+    .hero__inner { padding: 40px 24px 72px; gap: 40px; }
     .hero__media { grid-template-columns: 1fr; gap: 28px; align-items: stretch; }
 
     section { padding-block: 84px; }
