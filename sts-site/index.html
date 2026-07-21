@@ -442,6 +442,36 @@
     transform: rotate(45deg);
   }
 
+  .hero__resources {
+    display: block;
+    width: fit-content;
+    margin-top: 22px;
+    text-decoration: none;
+    transition: color .2s ease;
+  }
+  .hero__resources-label {
+    display: block;
+    width: fit-content;
+    font-family: var(--head-cond);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    font-size: 12px;
+    color: var(--copper-soft);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    transition: color .2s ease;
+  }
+  .hero__resources:hover .hero__resources-label { color: #fff; }
+  .hero__resources-hint {
+    display: block;
+    margin-top: 6px;
+    font-family: var(--body);
+    letter-spacing: 0.04em;
+    font-size: 13px;
+    color: rgba(255,255,255,0.55);
+  }
+
   .hero__meta {
     margin-top: 14px;
     font-size: 13px;
@@ -1628,6 +1658,7 @@
   <nav class="nav__menu" id="navMenu" aria-label="Site navigation">
     <ul>
       <li><button type="button" data-contact-open>Providers</button></li>
+      <li><a href="https://providers.stsurgery.com/unlock">Provider Resources</a></li>
       <li><a href="https://forms.stsurgery.com">Patients</a></li>
       <li><a href="#reviews">Patient Reviews</a></li>
     </ul>
@@ -1689,6 +1720,10 @@
             Contact the Doctor
             <span class="arrow"></span>
           </button>
+          <a class="hero__resources" href="https://providers.stsurgery.com/unlock">
+            <span class="hero__resources-label">Provider Resources</span>
+            <span class="hero__resources-hint">Download patient forms</span>
+          </a>
         </div>
       </div>
     </div>
@@ -2175,7 +2210,7 @@
     <div class="footer__col">
       <h4>For Patients</h4>
       <ul>
-        <li><a href="#">Post-Op Instructions</a></li>
+        <li><a href="https://providers.stsurgery.com/unlock">Post-Op Instructions</a></li>
         <li><a href="https://g.page/r/CYkb9SAEt_azEBM/review" target="_blank" rel="noopener">Leave a Review</a></li>
         <li><a href="#">Contact Us</a></li>
         <li><a href="#">Privacy</a></li>
