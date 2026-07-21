@@ -1271,7 +1271,8 @@
     .contact-modal__panel { padding: 52px 48px 44px; }
   }
 
-  .contact-modal__close {
+  .contact-modal__close,
+  .map-modal__close {
     position: absolute;
     top: 10px; right: 10px;
     width: 44px; height: 44px;
@@ -1280,7 +1281,48 @@
     color: var(--ink-soft); font-size: 28px; line-height: 1;
     transition: color .18s ease;
   }
-  .contact-modal__close:hover { color: var(--navy); }
+  .contact-modal__close:hover,
+  .map-modal__close:hover { color: var(--navy); }
+
+  /* ── service-map lightbox (opened from the footer "Service Map" link) ── */
+  .map-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 16px;
+    background: rgba(39, 51, 73, 0.78);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .map-modal.is-open { display: flex; }
+
+  .map-modal__panel {
+    position: relative;
+    width: 100%;
+    max-width: min(1100px, 94vw);
+    margin: auto;
+    background: #fff;
+    border: 1px solid var(--line);
+    padding: 52px 16px 20px;
+  }
+  @media (min-width: 600px) {
+    .map-modal__panel { padding: 56px 24px 24px; }
+  }
+  .map-modal__panel img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .map-modal__panel figcaption {
+    font-family: var(--body);
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    padding-top: 14px;
+  }
 
   .contact-modal__title {
     font-family: var(--head-display);
@@ -2201,7 +2243,7 @@
       <h4>For Practices</h4>
       <ul>
         <li><a href="#">Book a Day</a></li>
-        <li><a href="#">Service Map</a></li>
+        <li><a href="#" data-map-open>Service Map</a></li>
         <li><a href="#">Case Planning</a></li>
         <li><a href="#">Insurance &amp; Billing</a></li>
       </ul>
@@ -2328,6 +2370,17 @@
       </div>
     </form>
   </div>
+</div>
+
+<!-- ───────── SERVICE MAP LIGHTBOX ───────── -->
+<div class="map-modal" id="mapModal" role="dialog" aria-modal="true" aria-label="Service area map" aria-hidden="true">
+  <figure class="map-modal__panel">
+    <button class="map-modal__close" type="button" data-map-close aria-label="Close">&times;</button>
+    <img src="assets/img/service-map-2000.jpg"
+         alt="Map showing Southern Travel Surgery's 3-hour service area and the surrounding Kentucky regions with high Medicaid need"
+         loading="lazy" decoding="async">
+    <figcaption>In these areas, the demand for surgical care outpaces access. We partner with local providers to help close that gap.</figcaption>
+  </figure>
 </div>
 
 <script>
@@ -2594,6 +2647,39 @@
         submitBtn.disabled = false;
         submitBtn.textContent = originalLabel;
       }
+    });
+  })();
+
+  // Service-map lightbox — opened from the footer "Service Map" link
+  (() => {
+    const modal = document.getElementById('mapModal');
+    if (!modal) return;
+    let lastFocused = null;
+
+    const openModal = (trigger) => {
+      lastFocused = trigger;
+      modal.classList.add('is-open');
+      document.body.classList.add('modal-open');
+      modal.setAttribute('aria-hidden', 'false');
+      const close = modal.querySelector('.map-modal__close');
+      if (close) close.focus();
+    };
+    const closeModal = () => {
+      modal.classList.remove('is-open');
+      document.body.classList.remove('modal-open');
+      modal.setAttribute('aria-hidden', 'true');
+      if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
+    };
+
+    document.querySelectorAll('[data-map-open]').forEach((el) => {
+      el.addEventListener('click', (e) => { e.preventDefault(); openModal(el); });
+    });
+    modal.querySelectorAll('[data-map-close]').forEach((el) => {
+      el.addEventListener('click', closeModal);
+    });
+    modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
     });
   })();
 </script>
