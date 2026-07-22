@@ -1592,6 +1592,11 @@
     .nav__inner { grid-template-columns: auto 1fr auto; padding: 12px 20px; }
     .nav__right .nav__textlink { display: none; }
 
+    /* mobile: hero first, credibility band right after it (desktop keeps band above hero) */
+    body { display: flex; flex-direction: column; }
+    .nav { order: -2; }
+    .hero { order: -1; }
+
     .hero__inner { padding: 40px 24px 72px; gap: 40px; }
     .hero__top { flex-direction: column; gap: 32px; }
     .hero__proof { text-align: left; margin-top: 0; }
