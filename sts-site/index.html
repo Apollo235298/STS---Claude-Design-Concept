@@ -328,6 +328,36 @@
     font-weight: 300;
   }
 
+  .hero__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 40px;
+  }
+
+  .hero__proof {
+    text-align: right;
+    margin-top: 10px;
+    flex-shrink: 0;
+  }
+  .hero__proof-num {
+    display: block;
+    font-family: var(--head-display);
+    font-weight: 800;
+    font-size: clamp(40px, 5vw, 64px);
+    line-height: 1;
+    color: #fff;
+  }
+  .hero__proof-label {
+    display: block;
+    margin-top: 8px;
+    font-family: var(--head-cond);
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    font-size: 12px;
+    color: var(--copper-soft);
+  }
+
   .hero__media {
     display: grid;
     grid-template-columns: minmax(0, 1.45fr) minmax(220px, 0.55fr);
@@ -1563,6 +1593,9 @@
     .nav__right .nav__textlink { display: none; }
 
     .hero__inner { padding: 40px 24px 72px; gap: 40px; }
+    .hero__top { flex-direction: column; gap: 32px; }
+    .hero__proof { text-align: left; margin-top: 0; }
+    .hero__proof-num { font-size: 36px; }
     .hero__media { grid-template-columns: 1fr; gap: 28px; align-items: stretch; }
 
     section { padding-block: 84px; }
@@ -1736,14 +1769,21 @@
 <!-- ───────── HERO ───────── -->
 <section class="hero" id="top">
   <div class="hero__inner">
-    <div>
-      <div class="hero__eyebrow">Portable Oral Surgery · For Referring Dental Practices</div>
-      <h1 class="hero__title">Southern Travel Surgery</h1>
-      <span class="copper-rule"></span>
-      <p class="hero__sub">
-        Complex cases handled on-site, by a credentialed surgical team. No referrals out, no patients
-        lost — just advanced care happening right where you already practice.
-      </p>
+    <div class="hero__top">
+      <div>
+        <div class="hero__eyebrow">Portable Oral Surgery · For Referring Dental Practices</div>
+        <h1 class="hero__title">Southern Travel Surgery</h1>
+        <span class="copper-rule"></span>
+        <p class="hero__sub">
+          Complex cases handled on-site, by a credentialed surgical team. No referrals out, no patients
+          lost — just advanced care happening right where you already practice.
+        </p>
+      </div>
+
+      <div class="hero__proof">
+        <span class="hero__proof-num">1,148</span>
+        <span class="hero__proof-label">Patients Served</span>
+      </div>
     </div>
 
     <div class="hero__media">
