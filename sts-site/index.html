@@ -1650,6 +1650,41 @@
      CREDIBILITY BAND
      ───────────────────────────────────────────────── */
 
+  /* ── post-op care download band (between surgeries and FAQ) ── */
+  .postop-band {
+    background: #1d2738;
+    color: #fff;
+    padding-block: 0;
+    border-top: 1px solid rgba(255,255,255,0.07);
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+  .postop-band__inner {
+    max-width: var(--shell);
+    margin-inline: auto;
+    padding: 44px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  .postop-band__h {
+    font-family: var(--head-display);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    font-size: clamp(20px, 2.4vw, 28px);
+    line-height: 1.1;
+    margin: 0;
+  }
+  .postop-band__sub {
+    margin: 10px 0 0;
+    font-size: 15px;
+    line-height: 1.6;
+    color: rgba(255,255,255,0.72);
+    max-width: 60ch;
+  }
+
   .cred-band {
     background: #1d2738;
     padding-block: 0;
@@ -1740,6 +1775,7 @@
       <li><button type="button" data-contact-open>Providers</button></li>
       <li><a href="https://providers.stsurgery.com/unlock">STS Consent Forms</a></li>
       <li><a href="https://stswebsiteservicemap.netlify.app" target="_blank" rel="noopener">Service Map</a></li>
+      <li><a href="assets/pdf/sts-post-op-care-instructions.pdf" download="STS Post Operative Instructions.pdf">Post Operatory Care Download</a></li>
       <li><a href="https://forms.stsurgery.com">Patients</a></li>
       <li><a href="#reviews">Patient Reviews</a></li>
     </ul>
@@ -1969,6 +2005,17 @@
         <p class="surgery__desc">Full IV sedation with hospital-grade monitoring, performed in-office by our credentialed team.</p>
       </li>
     </ul>
+  </div>
+</section>
+
+<!-- ───────── POST-OP CARE DOWNLOAD ───────── -->
+<section class="postop-band">
+  <div class="postop-band__inner">
+    <div>
+      <h2 class="postop-band__h">Post Operatory Care Download</h2>
+      <p class="postop-band__sub">Aftercare instructions for patients — download, print, and send home with them.</p>
+    </div>
+    <a class="btn btn--ghost-light" href="assets/pdf/sts-post-op-care-instructions.pdf" download="STS Post Operative Instructions.pdf">Download PDF</a>
   </div>
 </section>
 
