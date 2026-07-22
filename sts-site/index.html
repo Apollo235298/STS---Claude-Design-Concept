@@ -2243,7 +2243,7 @@
       <h4>For Practices</h4>
       <ul>
         <li><a href="#">Book a Day</a></li>
-        <li><a href="#" data-map-open>Service Map</a></li>
+        <li><a href="https://stswebsiteservicemap.netlify.app" target="_blank" rel="noopener">Service Map</a></li>
         <li><a href="#">Case Planning</a></li>
         <li><a href="#">Insurance &amp; Billing</a></li>
       </ul>
@@ -2372,7 +2372,10 @@
   </div>
 </div>
 
-<!-- ───────── SERVICE MAP LIGHTBOX ───────── -->
+<!-- ───────── SERVICE MAP LIGHTBOX ─────────
+     Currently un-triggered: the footer "Service Map" link now goes to
+     https://stswebsiteservicemap.netlify.app instead. To restore the popup,
+     change that link back to href="#" with the data-map-open attribute. -->
 <div class="map-modal" id="mapModal" role="dialog" aria-modal="true" aria-label="Service area map" aria-hidden="true">
   <figure class="map-modal__panel">
     <button class="map-modal__close" type="button" data-map-close aria-label="Close">&times;</button>
